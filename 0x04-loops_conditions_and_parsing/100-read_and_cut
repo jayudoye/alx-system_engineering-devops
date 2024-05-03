@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Path to the /etc/passwd file
+
+passwd_file="/etc/passwd"
+
+while IFS=: read -r username _ userid _ _ home_dir _
+do
+    echo "$username:x:$userid:$userid:$username:$home_dir:/usr/sbin/nologin"
+done < "$passwd_file"
