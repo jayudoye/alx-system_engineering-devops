@@ -1,0 +1,36 @@
+Task 0 - Simple web stack:
+https://imgur.com/nB50d2F
+
+Explanations:
+--What is a server?
+A server is a specialized computer or software system designed to provide services, data, or resources to other computers (known as clients) over a network.
+
+
+--What is the role of the domain name?
+The domain name provides an easily understandable and human-readable address for website and internet resources in-place of IP address.
+
+
+--What type of DNS record www is in www.foobar.com?
+Canonical Name record
+
+
+--What is the role of the web server?
+The web server is a computer that stores web server software and a website's component files (for example, HTML documents, images, CSS stylesheets, and JavaScript files). A web server connects to the Internet and supports physical data interchange with other devices connected to the web. It also includes several parts that control how web users access hosted files.
+
+
+--What is the role of the application server?
+Application servers communicate with database servers to retrieve or update data. It manages user sessions by maintaining state information between requests, allowing users to remain logged in and preserving their data across interactions. It also enforce security measures by authenticating users, authorizing access to specific resources, and protecting against unauthorized actions.
+
+
+--What is the role of the database?
+The database serves as an organized collection of structured information, or data, typically stored electronically in a computer system.
+
+
+--What is the server using to communicate with the computer of the user requesting the website?
+The server communicates with the user's computer using a set of protocols called the Transmission Control Protocol/Internet Protocol (TCP/IP) suite.
+
+
+Issues with this infrastructure:
+- Numerous points of failure
+- Scaling is difficult
+- periodic downtime during updates and maintenance
