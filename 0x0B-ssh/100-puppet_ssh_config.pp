@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# connect with puppet
+# uses puppet to connect and make changes to local ssh config file
 
-file_line { 'Declare_identity_file':
-  ensure  => present,
-  path    => '/etc/ssh/ssh_config',
-  line    => 'IdentityFile ~/.ssh/school',
+file_line {'Turn off passwd auth':
+  ensure => present,
+  path   => '/home/.ssh/config',
+  line   => 'PasswordAuthentication no',
 }
 
-file_line { 'Turn_off_passwd_auth':
-  ensure  => present,
-  path    => '/etc/ssh/ssh_config',
-  line    => 'PasswordAuthentication no',
+file_line {'Declare identity file':
+  ensure => present,
+  path   => '/home/.ssh/config',
+  line   => 'IdentityFile /home/.ssh/school',
 }
