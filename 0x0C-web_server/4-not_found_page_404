@@ -1,46 +1,40 @@
 #!/usr/bin/env bash
-# Update package lists
-apt-get update -y
+# configures a new Ubuntu machine to install nginx
+# and print "Hello World" when querying Nginx
 
-# Install nginx web server
-apt-get install nginx -y
+# install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-# Configure nginx on port 80
-cat <<EOL > /etc/nginx/sites-available/default
-server {
-    listen 80 default_server;
-    server_name _;
+# Allowing nginx to bypass firwall
+sudo ufw allow "Nginx HTTP"
 
-    location / {
-        root /usr/share/nginx/html;
-        index index.html;
-    }
+# Giving permissions to deal without sudo
+sudo chown "$USER:$USER" /var/www/html
+sudo chmod 755 -R /var/www/
 
-    location /custom_404.html {
-        internal;
-        root /usr/share/nginx/html;
-    }
+# output "Hello World!" when nginx is queried
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=dphzDKZa6xk;
-    }
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404_err.html > /dev/null
 
-    error_page 404 /custom_404.html;
-    location = /custom_404.html {
-        root /usr/share/nginx/html;
-        internal;
-    }
-}
-EOL
+printf %s "server {
+                    listen 80 default_server;
+                    listen [::]:80 default_server;
+                    root /var/www/html;
+                    index index.html index.htm;
 
-# Start nginx service
-service nginx start
+                    location /redirect_me {
+                          return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+                  }
 
-# Create index.html
-echo "Hello World!" > /usr/share/nginx/html/index.html
+                  error_page 404 /404_err.html;
+                  location /404 {
+                    root /var/www/html;
+                    internal;
+                  }
+            }" > /etc/nginx/sites-available/default
 
-# Create custom_404.html
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 
-# Restart nginx to apply changes
-service nginx restart
+# start the nginx server
+sudo service nginx restart
