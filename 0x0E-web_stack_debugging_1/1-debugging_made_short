@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# A Bash script that handles curl: (7) Failed to connect to 0 port 80: Connection refused
+sed -i 's/8080 default/80 default/' /etc/nginx/sites-enabled/default
+sudo service nginx restart
+pkill -o nginx
